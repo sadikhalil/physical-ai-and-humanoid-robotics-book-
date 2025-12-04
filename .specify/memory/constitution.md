@@ -1,55 +1,152 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+<Sync Impact Report>
+Version change: 1.0.0 -> 1.0.0
+Modified principles: Chapters (reorganized into parts)
+Added sections: None (structural reorganization)
+Removed sections: None
+Templates requiring updates:
+- .specify/templates/plan-template.md ⚠ pending
+- .specify/templates/spec-template.md ⚠ pending
+- .specify/templates/tasks-template.md ⚠ pending
+- .specify/templates/commands/*.md ⚠ pending
+- Runtime guidance docs (README.md, etc.) ⚠ pending
+Follow-up TODOs: None
+</Sync Impact Report>
+-->
+# Book Constitution
 
-## Core Principles
+## Title
+Physical AI & Humanoid Robotics: Hybrid Approach
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## Purpose
+Teach students AI + Robotics using a hybrid approach (real humanoid robots + educational learning kits).
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+## Audience
+University students, beginners to intermediate in AI & Robotics
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+## Learning Outcomes
+- Understand the basics of Physical AI
+- Learn humanoid robot types and anatomy
+- Implement AI control systems for humanoid robots
+- Use reinforcement learning for robot control
+- Build a RAG-enabled study assistant
+- Access content in Urdu and personalized formats
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+## Constraints
+- All chapters must be written in Markdown for Docusaurus
+- Each chapter must include hybrid examples (real robots + educational kits)
+- Content must be generated using Claude Code Agent
+- Interactive features like RAG chatbot, login, and personalization must be planned
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+## Chapters
+### Part 1: Foundations
+### 01-introduction
+**Title:** Introduction to Physical AI & Humanoid Robotics
+**Description:** Overview of Physical AI, hybrid learning approach, real humanoids vs educational kits
 
-### [PRINCIPLE_6_NAME]
+### 02-physical-ai-basics
+**Title:** Physical AI Basics
+**Description:** Explain Physical AI concepts, applications, and hybrid examples
+
+### 03-humanoid-systems
+**Title:** Humanoid Robot Types
+**Description:** Overview of different humanoid robots: Atlas, Optimus, NAO, Astro
+
+### 06-history-evolution
+**Title:** History and Evolution of Humanoid Robotics
+**Description:** From early robots to modern humanoids, educational vs industrial robots
+
+### 07-physical-ai-principles
+**Title:** Physical AI Principles
+**Description:** Concepts of embodiment and real-world learning, hybrid physical-digital models, examples in robotics education
+
+### Part 2: Humanoid Robot Anatomy & Mechanics
+### 04-anatomy
+**Title:** Anatomy of a Humanoid Robot
+**Description:** Explain robot joints, actuators, sensors, motors, hybrid examples
+
+### 05-locomotion-balance
+**Title:** Locomotion & Balance
+**Description:** Describe locomotion, walking, balancing techniques in humanoid robots
+
+### 08-robot-anatomy-actuation
+**Title:** Robot Anatomy and Actuation
+**Description:** Joints, motors, servos, actuators, skeleton and frame structure
+
+### 09-sensors-perception
+**Title:** Sensors and Perception Systems
+**Description:** Cameras, LIDAR, IMU, touch sensors, sensor fusion for movement and perception
+
+### 10-manipulation-grasping
+**Title:** Manipulation & Grasping
+**Description:** Hands, grippers, and end-effectors, object interaction and manipulation tasks
+
+### Part 3: AI & Control Systems
+### 11-control-systems
+**Title:** Control Systems for Humanoids
+**Description:** Classical control (PID, feedback loops), AI-driven control and reinforcement learning
+
+### 12-learning-physical-ai
+**Title:** Learning in Physical AI
+**Description:** Reinforcement learning in robots, sim-to-real transfer, hybrid learning with educational kits
+
+### 13-computer-vision-perception-ai
+**Title:** Computer Vision and Perception AI
+**Description:** Object recognition, motion tracking, environmental awareness
+
+### 14-human-robot-interaction
+**Title:** Human-Robot Interaction
+**Description:** Communication with humans, gesture, voice, and facial recognition, safety and usability
+
+### Part 4: Implementation & Projects
+### 15-educational-hybrid-kits
+**Title:** Educational Hybrid Learning Kits
+**Description:** NAO, Astro, or similar humanoid kits, combining AI models with physical robots
+
+### 16-project-planning-task-management
+**Title:** Project Planning and Task Management
+**Description:** How to plan experiments and robotics tasks, step-by-step task breakdown
+
+### 17-practical-implementation-examples
+**Title:** Practical Implementation Examples
+**Description:** Step-by-step experiments, coding examples and integration
+
+### 18-rag-chatbot-integration
+**Title:** RAG Chatbot Integration
+**Description:** Adding AI assistants to humanoids, retrieval-augmented guidance and personalization
+
+### 19-user-personalization-multi-language
+**Title:** User Personalization & Multi-Language Support
+**Description:** Custom learning paths, Urdu or other localization support
+
+### Part 5: Testing, Research & Future
+### 20-testing-validation-debugging
+**Title:** Testing, Validation & Debugging
+**Description:** Testing AI models on humanoid robots, debugging sensor and movement issues
+
+### 21-case-studies-research-projects
+**Title:** Case Studies & Research Projects
+**Description:** Real-world examples of Physical AI projects, hybrid educational and research applications
+
+### 22-advanced-ai-algorithms
+**Title:** Advanced AI Algorithms
+**Description:** Motion planning, reinforcement learning for complex tasks
+
+### 23-future-trends-directions
+**Title:** Future Trends & Directions
+**Description:** Emerging humanoid robots, future of hybrid learning and Physical AI
 
 
-[PRINCIPLE__DESCRIPTION]
+## Features
+- RAG Chatbot: true
+- Personalization: true
+- Urdu Translation: true
+- Interactive Examples: true
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Conclusion
+This book provides a comprehensive and hybrid approach to Physical AI and Humanoid Robotics, covering foundational concepts, anatomy, AI control systems, practical implementation, and future trends, aiming to equip students with both theoretical knowledge and practical skills for this evolving field.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution supersedes all other practices. Amendments require documentation, approval, and a migration plan. All PRs/reviews must verify compliance.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-04 | **Last Amended**: 2025-12-04

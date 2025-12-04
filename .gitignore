@@ -1,0 +1,31 @@
+# Git Ignore for Physical AI Humanoid Robotic Book Project
+
+# Universal
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+*.log
+.env*
+
+# Node.js/JavaScript/TypeScript
+node_modules/
+dist/
+build/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+coverage/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# Docker
+.dockerignore
