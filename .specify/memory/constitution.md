@@ -52,6 +52,14 @@ University students, beginners to intermediate in AI & Robotics
 **Title:** Humanoid Robot Types
 **Description:** Overview of different humanoid robots: Atlas, Optimus, NAO, Astro
 
+### 04-anatomy
+**Title:** Anatomy of a Humanoid Robot
+**Description:** Explain robot joints, actuators, sensors, motors, hybrid examples
+
+### 05-locomotion-balance
+**Title:** Locomotion & Balance
+**Description:** Describe locomotion, walking, balancing techniques in humanoid robots
+
 ### 06-history-evolution
 **Title:** History and Evolution of Humanoid Robotics
 **Description:** From early robots to modern humanoids, educational vs industrial robots
@@ -61,14 +69,6 @@ University students, beginners to intermediate in AI & Robotics
 **Description:** Concepts of embodiment and real-world learning, hybrid physical-digital models, examples in robotics education
 
 ### Part 2: Humanoid Robot Anatomy & Mechanics
-### 04-anatomy
-**Title:** Anatomy of a Humanoid Robot
-**Description:** Explain robot joints, actuators, sensors, motors, hybrid examples
-
-### 05-locomotion-balance
-**Title:** Locomotion & Balance
-**Description:** Describe locomotion, walking, balancing techniques in humanoid robots
-
 ### 08-robot-anatomy-actuation
 **Title:** Robot Anatomy and Actuation
 **Description:** Joints, motors, servos, actuators, skeleton and frame structure

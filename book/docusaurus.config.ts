@@ -5,9 +5,13 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'My Site',
+  title: 'Physical AI & Humanoid Robotics',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
+
+  scripts: [
+    '/js/translate.js',
+  ],
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -75,9 +79,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'My Site',
+      title: 'Physical AI & Humanoid Robotics',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Physical AI & Humanoid Robotics Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -85,13 +89,29 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Book',
+          to: '/docs/Part 1 - Foundations/01-introduction',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/chatbot', label: 'Chatbot AI', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/sadikhalil',
           label: 'GitHub',
           position: 'right',
+        },
+        {
+          to: '/login',
+          label: 'Login',
+          position: 'right',
+        },
+        {
+          to: '/signup',
+          label: 'Sign Up',
+          position: 'right',
+        },
+        {
+          type: 'html', // Changed from 'custom' to 'html'
+          position: 'right',
+          value: '<button class="button button--secondary navbar-translate-button" onclick="initiateUrduTranslation()">Translate to Urdu</button>',
         },
       ],
     },
@@ -122,6 +142,10 @@ const config: Config = {
               label: 'X',
               href: 'https://x.com/docusaurus',
             },
+            {
+              label: 'GitHub',
+              href: 'https://github.com/sadikhalil',
+            },
           ],
         },
         {
@@ -133,12 +157,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/sadikhalil',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Book. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

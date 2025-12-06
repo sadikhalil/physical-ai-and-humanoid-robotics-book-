@@ -74,6 +74,13 @@ A student can customize their learning environment by setting language preferenc
 -   **FR-005**: Users MUST be able to set and persist display personalization settings (e.g., dark mode).
 -   **FR-006**: The RAG chatbot MUST provide contextually relevant answers based on the book's content.
 -   **FR-007**: The system MUST retain user preferences and learning progress across sessions.
+-   **FR-008**: The project MUST utilize a multi-agent system for content generation and management, including:
+    -   An agent for writing book chapters.
+    -   An agent for Urdu translation.
+    -   An agent for verifying book content.
+    -   An agent for answering queries about the book.
+-   **FR-009**: The book platform MUST include a user signup/registration section.
+-   **FR-010**: The book platform MUST provide a visible button for users to explicitly save their reading progress.
 
 ### Non-Functional Requirements
 
@@ -110,6 +117,39 @@ A student can customize their learning environment by setting language preferenc
 
 ## Assumptions and Constraints
 
+### Book Structure and Generation Policy
+
+-   **Chapter Generation**: Chapters will only be written upon explicit user request.
+-   **Book Parts**: The book will be divided into 5 distinct parts, with chapters distributed as follows:
+    -   **Part 1: Foundations** (Chapters 1-7)
+        -   01-introduction: Introduction to Physical AI & Humanoid Robotics
+        -   02-physical-ai-basics: Physical AI Basics
+        -   03-humanoid-systems: Humanoid Robot Types
+        -   06-history-evolution: History and Evolution of Humanoid Robotics
+        -   07-physical-ai-principles: Physical AI Principles
+        -   04-anatomy: Anatomy of a Humanoid Robot
+        -   05-locomotion-balance: Locomotion & Balance
+    -   **Part 2: Humanoid Robot Anatomy & Mechanics** (Chapters 8-10)
+        -   08-robot-anatomy-actuation: Robot Anatomy and Actuation
+        -   09-sensors-perception: Sensors and Perception Systems
+        -   10-manipulation-grasping: Manipulation & Grasping
+    -   **Part 3: AI & Control Systems** (Chapters 11-14)
+        -   11-control-systems: Control Systems for Humanoids
+        -   12-learning-physical-ai: Learning in Physical AI
+        -   13-computer-vision-perception-ai: Computer Vision and Perception AI
+        -   14-human-robot-interaction: Human-Robot Interaction
+    -   **Part 4: Implementation & Projects** (Chapters 15-19)
+        -   15-educational-hybrid-kits: Educational Hybrid Learning Kits
+        -   16-project-planning-task-management: Project Planning and Task Management
+        -   17-practical-implementation-examples: Practical Implementation Examples
+        -   18-rag-chatbot-integration: RAG Chatbot Integration
+        -   19-user-personalization-multi-language: User Personalization & Multi-Language Support
+    -   **Part 5: Testing, Research & Future** (Chapters 20-23)
+        -   20-testing-validation-debugging: Testing, Validation & Debugging
+        -   21-case-studies-research-projects: Case Studies & Research Projects
+        -   22-advanced-ai-algorithms: Advanced AI Algorithms
+        -   23-future-trends-directions: Future Trends & Directions
+
 ### Assumptions
 
 -   Students will have basic programming literacy (e.g., Python).
@@ -122,4 +162,4 @@ A student can customize their learning environment by setting language preferenc
 -   All book chapters MUST be authored in Markdown format, compatible with Docusaurus.
 -   Every chapter MUST integrate hybrid examples featuring both real humanoid robots and educational learning kits.
 -   All book content generation MUST utilize the Claude Code Agent.
--   Interactive features (RAG chatbot, personalization, Urdu translation, login) MUST be planned for implementation.
+-   Interactive features (RAG chatbot, personalization, Urdu translation, login) MUST be planned for implementation. dont allow autogeneration of chapters follow instructions and generate chapters in the form of different parts of book. 
