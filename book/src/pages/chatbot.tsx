@@ -57,7 +57,7 @@ function ChatbotPage() {
     { id: 1, sender: 'bot', text: 'Hello! I am the Physical AI & Humanoid Robotics book chatbot, conceptually powered by a FastAPI RAG system with OpenAI Agent SDK and Neon Postgres. How can I assist you today?' },
   ]);
   const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // New loading state
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -68,121 +68,200 @@ function ChatbotPage() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent, message?: string) => {
     e.preventDefault();
-    if (inputMessage.trim() === '' || isLoading) return; // Disable send button while loading
+    const messageToSend = message || inputMessage;
+    if (messageToSend.trim() === '' || isLoading) return;
 
     const newUserMessage: ChatMessage = {
-      id: messages.length + 1,
+      id: Date.now(),
       sender: 'user',
-      text: inputMessage.trim(),
+      text: messageToSend.trim(),
     };
+
     setMessages((prevMessages) => [...prevMessages, newUserMessage]);
     setInputMessage('');
-    setIsLoading(true); // Set loading true
-
-    // Add a "bot is typing" message
-    const typingMessageId = messages.length + 2;
-    setMessages((prevMessages) => [...prevMessages, { id: typingMessageId, sender: 'bot', text: '...' }]);
+    setIsLoading(true);
 
     try {
-      // Simulate API call to FastAPI backend RAG service
-      const botResponseText = await conceptualBackendCall(newUserMessage.text); // Simulate the API call
-
-      // Replace the "typing" message with the actual response
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg.id === typingMessageId ? { ...msg, text: botResponseText } : msg
-        )
-      );
+      const botResponseText = await conceptualBackendCall(newUserMessage.text);
+      const newBotMessage: ChatMessage = {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: botResponseText,
+      };
+      setMessages((prevMessages) => [...prevMessages, newBotMessage]);
     } catch (error) {
       console.error('Chatbot API error:', error);
-      // Replace typing message with an error
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg.id === typingMessageId ? { ...msg, text: 'Error: Could not get a response from the conceptual FastAPI RAG backend.' } : msg
-        )
-      );
+      const errorBotMessage: ChatMessage = {
+        id: Date.now() + 1,
+        sender: 'bot',
+        text: 'Error: Could not get a response from the conceptual FastAPI RAG backend.',
+      };
+      setMessages((prevMessages) => [...prevMessages, errorBotMessage]);
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
 
+  const handleClearChat = () => {
+    setMessages([
+      { id: 1, sender: 'bot', text: 'Hello! I am the Physical AI & Humanoid Robotics book chatbot, conceptually powered by a FastAPI RAG system with OpenAI Agent SDK and Neon Postgres. How can I assist you today?' },
+    ]);
+  };
+
+  const handleCopyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert('Copied to clipboard!');
+  };
+
+  const suggestedQuestions = [
+    'What is Physical AI?',
+    'Tell me about humanoid robots.',
+    'What is a RAG chatbot?',
+    'Explain the role of the OpenAI Agent SDK.',
+  ];
+
   return (
     <Layout title="Chatbot AI" description="Chat with an AI assistant about the Physical AI & Humanoid Robotics book content, conceptually powered by RAG, OpenAI Agent SDK, FastAPI, and Neon Postgres.">
-      <main className="container margin-vert--lg">
-        <h1>Chat with the Book AI</h1>
-        <div
-          style={{
-            height: '60vh',
-            maxHeight: '600px',
-            border: '1px solid var(--ifm-toc-border-color)',
-            borderRadius: '8px',
-            padding: '1rem',
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: 'var(--ifm-background-color)',
-          }}
-        >
-          <div style={{ flexGrow: 1, overflowY: 'auto', marginBottom: '1rem', paddingRight: '10px' }}>
-            {messages.map((msg) => (
-              <div
-                key={msg.id}
-                style={{
-                  display: 'flex',
-                  justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-                  marginBottom: '0.5rem',
-                }}
-              >
+      <main className="container margin-vert--lg" style={{
+        backgroundImage: 'url("/img/undraw_docusaurus_mountain.svg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        padding: '2rem',
+        borderRadius: '10px'
+      }}>
+        <div style={{
+          backgroundColor: 'rgba(194, 152, 152, 0.8)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '10px',
+          padding: '2rem'
+        }}>
+          <h1 style={{ fontSize: '2.5rem' }}>Chat with the Book AI</h1>
+          <div
+            style={{
+              height: '80vh',
+              maxHeight: '800px',
+              border: '1px solid var(--ifm-toc-border-color)',
+              borderRadius: '8px',
+              display: 'flex',
+              flexDirection: 'column',
+              backgroundColor: '#9fa2a4ff',
+            }}
+          >
+            <div style={{
+              padding: '1rem',
+              borderBottom: '1px solid var(--ifm-toc-border-color)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img src="/img/logo.svg" alt="Chatbot" style={{ width: '40px', height: '40px', marginRight: '10px' }} />
+                <h2 style={{ margin: 0, fontSize: '1.5rem' }}>Physical AI & Humanoid Robotics Assistant</h2>
+              </div>
+              <button className="button button--secondary button--sm" onClick={handleClearChat}>Clear Chat</button>
+            </div>
+            <div style={{ flexGrow: 1, overflowY: 'auto', marginBottom: '1rem', padding: '1rem' }}>
+              {messages.map((msg) => (
                 <div
+                  key={msg.id}
                   style={{
-                    backgroundColor: msg.sender === 'user' ? 'var(--ifm-color-primary)' : 'var(--ifm-background-color-secondary)',
-                    color: msg.sender === 'user' ? 'white' : 'inherit',
+                    display: 'flex',
+                    justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                    marginBottom: '1rem',
+                    alignItems: 'flex-start'
+                  }}
+                >
+                  {msg.sender === 'bot' && <img src="/img/logo.svg" alt="Bot" style={{ width: '30px', height: '30px', marginRight: '10px', borderRadius: '50%' }} />}
+                  <div
+                    style={{
+                      backgroundColor: msg.sender === 'user' ? '#60756aff' : '#e5e5e5',
+                      color: msg.sender === 'user' ? 'white' : '#333',
+                      padding: '0.6rem 1rem',
+                      borderRadius: '1.2rem',
+                      maxWidth: '70%',
+                      wordBreak: 'break-word',
+                      whiteSpace: 'pre-wrap',
+                      boxShadow: '0 1px 2px rgba(39, 38, 38, 0.1)',
+                      position: 'relative'
+                    }}
+                  >
+                    {msg.text}
+                    {msg.sender === 'bot' && (
+                      <button
+                        onClick={() => handleCopyToClipboard(msg.text)}
+                        style={{
+                          position: 'absolute',
+                          top: '5px',
+                          right: '5px',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          color: '#787878ff'
+                        }}
+                      >
+                        Copy
+                      </button>
+                    )}
+                  </div>
+                  {msg.sender === 'user' && <img src="https://docusaurus.io/img/docusaurus.png" alt="User" style={{ width: '30px', height: '30px', marginLeft: '10px', borderRadius: '50%' }} />}
+                </div>
+              ))}
+              {isLoading && (
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                  <img src="/img/logo.svg" alt="Bot" style={{ width: '30px', height: '30px', marginRight: '10px', borderRadius: '50%' }} />
+                  <div style={{
+                    backgroundColor: '#e5e5e5',
+                    color: 'black',
                     padding: '0.6rem 1rem',
                     borderRadius: '1.2rem',
                     maxWidth: '70%',
-                    wordBreak: 'break-word',
-                    whiteSpace: 'pre-wrap',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div className="dot-flashing" style={{ marginRight: '5px' }}></div>
+                      <div className="dot-flashing" style={{ marginRight: '5px' }}></div>
+                      <div className="dot-flashing"></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            <div style={{ padding: '1rem', borderTop: '1px solid var(--ifm-toc-border-color)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '1rem' }}>
+                {suggestedQuestions.map((question, index) => (
+                  <button key={index} className="button button--outline button--primary button--sm" style={{ color: '#1a73e8' }} onClick={(e) => handleSendMessage(e, question)}>
+                    {question}
+                  </button>
+                ))}
+              </div>
+              <form onSubmit={handleSendMessage} style={{ display: 'flex' }}>
+                <input
+                  type="text"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  placeholder="Ask a question about the book..."
+                  style={{
+                    flexGrow: 1,
+                    padding: '0.75rem 1rem',
+                    borderRadius: '20px',
+                    border: '1px solid var(--ifm-toc-border-color)',
+                    marginRight: '0.5rem',
+                    fontSize: '1rem',
                   }}
-                >
-                  <strong>{msg.sender === 'user' ? 'You' : 'Bot'}:</strong> {msg.text}
-                </div>
-              </div>
-            ))}
-            {isLoading && ( // Show typing indicator
-              <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '0.5rem' }}>
-                <div style={{ backgroundColor: 'var(--ifm-background-color-secondary)', padding: '0.6rem 1rem', borderRadius: '1.2rem', maxWidth: '70%', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)' }}>
-                  <strong>Bot:</strong> ... (typing)
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
+                  disabled={isLoading}
+                />
+                <button type="submit" className="button button--primary button--md" disabled={isLoading}>
+                  {isLoading ? 'Sending...' : 'Send'}
+                </button>
+              </form>
+            </div>
           </div>
-          <form onSubmit={handleSendMessage} style={{ display: 'flex' }}>
-            <input
-              type="text"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask a question about the book..."
-              style={{
-                flexGrow: 1,
-                padding: '0.75rem 1rem',
-                borderRadius: '20px',
-                border: '1px solid var(--ifm-toc-border-color)',
-                marginRight: '0.5rem',
-                fontSize: '1rem',
-              }}
-              disabled={isLoading} // Disable input while loading
-            />
-            <button type="submit" className="button button--primary button--md" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Send'}
-            </button>
-          </form>
+          <p style={{ marginTop: '1rem', textAlign: 'center', fontSize: '1.1rem', color: 'var(--ifm-color-emphasis-700)', fontWeight: 'bold' }}>
+            This is a conceptual chatbot demonstrating RAG with OpenAI Agent SDK, FastAPI, and Neon Serverless Postgres. A full implementation requires a deployed FastAPI backend, a configured Neon Postgres database, and API integration.
+          </p>
         </div>
-        <p style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--ifm-color-emphasis-700)' }}>
-          This is a conceptual chatbot demonstrating RAG with OpenAI Agent SDK, FastAPI, and Neon Serverless Postgres. A full implementation requires a deployed FastAPI backend, a configured Neon Postgres database, and API integration.
-        </p>
       </main>
     </Layout>
   );

@@ -12,7 +12,7 @@ function SignupPage() {
   const [error, setError] = useState('');
   const history = useHistory();
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(''); // Clear previous errors
 
@@ -21,17 +21,32 @@ function SignupPage() {
       return;
     }
 
-    // --- Placeholder Registration Logic ---
-    // In a real application, you would send this data to a backend server
-    // for user registration. For this static site, we'll simulate success.
-    if (username && password) { // Only check for username and password
-      alert(`Registration successful for ${username}!
-Software Background: ${softwareBackground || 'Not provided'}
-Hardware Background: ${hardwareBackground || 'Not provided'}
-Redirecting to book...`);
-      history.push('/docs/Part 1 - Foundations/01-introduction'); // Redirect to the book introduction
-    } else {
-      setError('Please fill in username and password.'); // Updated error message
+    try {
+      const response = await fetch('http://localhost:8000/register', { // Assuming backend runs on 8000
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          confirm_password: confirmPassword,
+          software_background: softwareBackground,
+          hardware_background: hardwareBackground,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Registration successful! Please log in.');
+        history.push('/login'); // Redirect to login page after successful registration
+      } else {
+        setError(data.detail || 'Registration failed.');
+      }
+    } catch (err) {
+      setError('Network error or server unavailable.');
+      console.error('Registration error:', err);
     }
   };
 
@@ -41,7 +56,7 @@ Redirecting to book...`);
         <div style={{
           padding: '2rem',
           borderRadius: '8px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 4px 6px rgba(238, 227, 227, 0.1)',
           maxWidth: '400px',
           width: '100%',
           backgroundColor: 'var(--ifm-background-color)',

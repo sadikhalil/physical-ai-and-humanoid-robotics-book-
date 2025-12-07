@@ -7,14 +7,11 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
-
-  scripts: [
-    '/js/translate.js',
-  ],
-
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
-  future: {
+    favicon: 'img/favicon.ico',
+  
+      
+    // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
+    future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
@@ -78,43 +75,40 @@ const config: Config = {
     colorMode: {
       respectPrefersColorScheme: true,
     },
-    navbar: {
-      title: 'Physical AI & Humanoid Robotics',
-      logo: {
-        alt: 'Physical AI & Humanoid Robotics Logo',
-        src: 'img/logo.svg',
-      },
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Book',
-          to: '/docs/Part 1 - Foundations/01-introduction',
-        },
-        {to: '/chatbot', label: 'Chatbot AI', position: 'left'},
-        {
-          href: 'https://github.com/sadikhalil',
-          label: 'GitHub',
-          position: 'right',
-        },
-        {
-          to: '/login',
-          label: 'Login',
-          position: 'right',
-        },
-        {
-          to: '/signup',
-          label: 'Sign Up',
-          position: 'right',
-        },
-        {
-          type: 'html', // Changed from 'custom' to 'html'
-          position: 'right',
-          value: '<button class="button button--secondary navbar-translate-button" onclick="initiateUrduTranslation()">Translate to Urdu</button>',
-        },
-      ],
+ navbar: {
+  title: 'Physical AI & Humanoid Robotics',
+  logo: {
+    alt: 'Physical AI & Humanoid Robotics Logo',
+    src: 'img/logo.svg',
+  },
+  items: [
+    {
+      type: 'docSidebar',
+      sidebarId: 'tutorialSidebar',
+      position: 'left',
+      label: 'Book'
     },
+    { to: '/chatbot', label: 'Chatbot AI', position: 'left' },
+    { to: '/about-author', label: 'About the Author', position: 'left' },
+    {
+      href: 'https://github.com/sadikhalil',
+      label: 'GitHub',
+      position: 'right',
+    },
+    {
+      to: '/login',
+      label: 'Login',
+      position: 'right',
+    },
+    {
+      to: '/signup',
+      label: 'Sign Up',
+      position: 'right',
+    },
+
+
+  ],
+},
     footer: {
       style: 'dark',
       links: [
@@ -123,7 +117,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/intro',
+              to: '/docs/Part 1 - Foundations/introduction',
             },
           ],
         },
@@ -145,6 +139,10 @@ const config: Config = {
             {
               label: 'GitHub',
               href: 'https://github.com/sadikhalil',
+            },
+            {
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/sadia-khalil-71341a2bb',
             },
           ],
         },

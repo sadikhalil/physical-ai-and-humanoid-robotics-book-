@@ -5,6 +5,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
+import { useEffect } from 'react'; // Import useEffect
+import { useHistory } from '@docusaurus/router'; // Import useHistory
 
 import styles from './index.module.css';
 
@@ -20,12 +22,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            Start Reading
-          </Link>
-          <Link
-            className="button button--secondary button--lg"
-            to="/login">
+            to="/login"
+            style={{ marginRight: '10px' }}>
             Login
           </Link>
           <Link
@@ -41,6 +39,15 @@ function HomepageHeader() {
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
+  const history = useHistory(); // Initialize useHistory
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn !== 'true') {
+      history.push('/login'); // Redirect to login page if not logged in
+    }
+  }, [history]);
+
   return (
     <Layout
       title={`Welcome to ${siteConfig.title}`}

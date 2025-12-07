@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import { useHistory } from '@docusaurus/router'; // Import useHistory for navigation
@@ -6,23 +6,56 @@ import { useHistory } from '@docusaurus/router'; // Import useHistory for naviga
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const history = useHistory();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(''); // Clear previous errors
 
-    // --- Placeholder Authentication Logic ---
-    // In a real application, you would send these credentials to a backend server
-    // for validation. For this static site, we'll simulate success.
-    if (username === 'test' && password === 'test') {
-      alert('Login successful! Redirecting to book...');
-      history.push('/docs/Part 1 - Foundations/01-introduction'); // Redirect to the book introduction
-    } else {
-      setError('Invalid username or password. Please try again (hint: test/test).');
+    try {
+      const response = await fetch('http://localhost:8000/login', { // Assuming backend runs on 8000
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (rememberMe) {
+          localStorage.setItem('rememberedUsername', username);
+        } else {
+          localStorage.removeItem('rememberedUsername');
+        }
+        localStorage.setItem('isLoggedIn', 'true'); // Store login status
+        alert('Login successful! Redirecting to book...');
+        history.push('/docs/Part 1 - Foundations/introduction'); // Redirect to the book introduction
+      } else {
+        setError(data.detail || 'Login failed.');
+      }
+    } catch (err) {
+      setError('Network error or server unavailable.');
+      console.error('Login error:', err);
     }
   };
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('rememberedUsername');
+    if (savedUsername) {
+      setUsername(savedUsername);
+      setRememberMe(true);
+    }
+
+    // Check if user is already logged in
+    const loggedIn = localStorage.getItem('isLoggedIn');
+    if (loggedIn === 'true') {
+      history.push('/docs/Part 1 - Foundations/introduction');
+    }
+  }, [history]);
 
   return (
     <Layout title="Login" description="Login to access the Physical AI & Humanoid Robotics book.">
@@ -30,7 +63,7 @@ function LoginPage() {
         <div style={{
           padding: '2rem',
           borderRadius: '8px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 4px 6px rgba(252, 242, 242, 0.1)',
           maxWidth: '400px',
           width: '100%',
           backgroundColor: 'var(--ifm-background-color)',
@@ -58,6 +91,16 @@ function LoginPage() {
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
                 required
               />
+            </div>
+            <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                style={{ marginRight: '0.5rem' }}
+              />
+              <label htmlFor="rememberMe">Remember Me</label>
             </div>
             {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
             <button
