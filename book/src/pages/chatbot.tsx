@@ -71,6 +71,7 @@ function ChatbotPage() {
 
   return (
     <Layout title="AI Chatbot" description="Chat with an AI assistant about the book.">
+      <h1 className="chatbot-page-header">Physical AI Book Assistant</h1>
       <div className="chatbot-container">
         <div className="chatbot-messages">
           {messages.map((msg) => (
