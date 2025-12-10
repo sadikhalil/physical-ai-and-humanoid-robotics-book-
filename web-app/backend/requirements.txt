@@ -7,3 +7,4 @@ qdrant-client
 cohere
 requests
 trafilatura
+protobuf==5.27.1
