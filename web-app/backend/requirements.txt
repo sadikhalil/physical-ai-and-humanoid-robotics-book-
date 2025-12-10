@@ -3,3 +3,7 @@ uvicorn
 google-generativeai
 python-dotenv
 passlib[bcrypt]
+qdrant-client
+cohere
+requests
+trafilatura

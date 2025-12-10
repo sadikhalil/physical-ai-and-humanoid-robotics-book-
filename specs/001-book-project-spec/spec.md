@@ -23,22 +23,6 @@ A student can read a chapter, understand the concepts of Physical AI and Humanoi
 
 ---
 
-### User Story 2 - Getting Assistance with RAG Chatbot (Priority: P1)
-
-A student can ask questions related to the book's content to an AI-powered RAG (Retrieval-Augmented Generation) chatbot and receive accurate, contextually relevant answers drawn from the book's chapters, even when the question is phrased informally.
-
-**Why this priority**: This directly supports active learning and problem-solving, enhancing the educational experience and accessibility.
-
-**Independent Test**: Can be fully tested by a student asking a question, receiving a correct answer with references to relevant book sections, and validating the response's accuracy. Delivers value by providing immediate, personalized support.
-
-**Acceptance Scenarios**:
-
-1.  **Given** a student asks "What are the main types of humanoid robots?" **When** they submit the query to the RAG chatbot, **Then** the chatbot returns a summary listing Atlas, Optimus, NAO, and Astro, citing Chapter 3.
-2.  **Given** a student asks "How does a robot maintain balance during walking?" **When** they submit the query, **Then** the chatbot explains locomotion and balancing techniques, referencing Chapter 5.
-3.  **Given** a student asks a question with a typo, **When** the chatbot processes the query, **Then** it attempts to understand the intent and provides a relevant answer.
-
----
-
 ### User Story 3 - Personalized Learning Experience (Priority: P2)
 
 A student can customize their learning environment by setting language preferences (specifically Urdu for localization) and display settings (e.g., dark mode), and the system retains these preferences across sessions, providing a tailored and accessible experience.
@@ -57,8 +41,7 @@ A student can customize their learning environment by setting language preferenc
 
 ### Edge Cases
 
--   **Content Errors/Inconsistencies**: How the RAG chatbot handles questions based on potentially outdated or conflicting information within the book content (e.g., provide a disclaimer or flag for review).
--   **RAG Chatbot Irrelevance/Incorrectness**: Scenarios where the chatbot provides answers that are not relevant or factually incorrect despite using the book content (e.g., implement user feedback mechanism, refine retrieval/generation models).
+
 -   **Hardware Kit Unavailability**: How the system or content guides students if specific physical hardware for hybrid examples is inaccessible (e.g., provide simulation alternatives, clear instructions for substitute components, or emphasize theoretical understanding).
 -   **Large Language Model Hallucinations**: Mitigation strategies if the RAG model generates plausible but incorrect information not directly supported by the retrieved text.
 -   **Urdu Translation Gaps**: How the system handles untranslated sections or technical terms in Urdu content (e.g., fallback to English, provide glossary).
@@ -68,11 +51,9 @@ A student can customize their learning environment by setting language preferenc
 ### Functional Requirements
 
 -   **FR-001**: The book platform MUST deliver all chapters in Docusaurus-compatible Markdown format.
--   **FR-002**: Each chapter MUST include interactive hybrid examples (real robots + educational kits).
--   **FR-003**: The platform MUST provide an AI-powered RAG chatbot for querying book content.
--   **FR-004**: Users MUST be able to set and persist language preferences, including Urdu.
--   **FR-005**: Users MUST be able to set and persist display personalization settings (e.g., dark mode).
--   **FR-006**: The RAG chatbot MUST provide contextually relevant answers based on the book's content.
+    -   **FR-002**: Each chapter MUST include interactive hybrid examples (real robots + educational kits).
+    -   **FR-004**: Users MUST be able to set and persist language preferences, including Urdu.
+    -   **FR-005**: Users MUST be able to set and persist display personalization settings (e.g., dark mode).
 -   **FR-007**: The system MUST retain user preferences and learning progress across sessions.
 -   **FR-008**: The project MUST utilize a multi-agent system for content generation and management, including:
     -   An agent for writing book chapters.
@@ -85,7 +66,7 @@ A student can customize their learning environment by setting language preferenc
 ### Non-Functional Requirements
 
 -   **NFR-001 (Usability)**: The book platform MUST be intuitive and easy to navigate for students new to Physical AI and Robotics.
--   **NFR-002 (Performance)**: The RAG chatbot MUST respond to user queries within 5 seconds for 95% of requests.
+-   **NFR-002 (Performance)**: User queries MUST respond within 5 seconds for 95% of requests.
 -   **NFR-003 (Performance)**: Chapter content MUST load within 2 seconds for 95% of users on a standard broadband connection.
 -   **NFR-004 (Localization)**: The platform MUST accurately display book content and UI elements in Urdu when selected.
 -   **NFR-005 (Availability)**: The book platform and RAG chatbot MUST be available 99.9% of the time.

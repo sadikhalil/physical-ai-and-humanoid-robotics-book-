@@ -53,6 +53,7 @@ const sidebars: SidebarsConfig = {
         { type: 'doc', id: 'Part 4 - Implementation & Projects/project-planning-task-management' },
         { type: 'doc', id: 'Part 4 - Implementation & Projects/practical-implementation-examples' },
         { type: 'doc', id: 'Part 4 - Implementation & Projects/rag-chatbot-integration' },
+
         { type: 'doc', id: 'Part 4 - Implementation & Projects/user-personalization-multi-language' },
       ],
     },
