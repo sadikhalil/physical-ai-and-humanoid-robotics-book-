@@ -11,37 +11,37 @@ import cohere
 # Load environment variables from .env file
 load_dotenv()
 
-SITEMAP_URL = "https://physical-ai-and-humanoid-robotics-b-gray.vercel.app/sitemap.xml"
+SITEMAP_URL = "https://physical-ai-and-humanoid-robotics-b-ashy.vercel.app/sitemap.xml"
 COLLECTION_NAME = "humanoid ai book"
 
 # Initialize Cohere client
-# It's recommended to store API keys in environment variables for security.
 cohere_client = cohere.Client(api_key=os.getenv("COHERE_API_KEY"))
-EMBEDDED_MODEL = "embed-english-v3.0" # Make sure this matches your Cohere model and Qdrant vector size
+EMBEDDED_MODEL = "embed-english-v3.0"
 
 # Initialize Qdrant client
 qdrant_client = QdrantClient(
     url=os.getenv("QDRANT_URL"), 
-    api_key=os.getenv("QDRANT_API_KEY"), # Use environment variable for Qdrant API key
+    api_key=os.getenv("QDRANT_API_KEY"),
 )
 
 def extract_urls_from_sitemap(sitemap_url: str) -> list[str]:
     """
-    Extracts all URLs from a given sitemap URL.
+    Extracts all URLs from a given sitemap URL, handling XML namespaces dynamically.
     """
     urls = []
     try:
         response = requests.get(sitemap_url)
-        response.raise_for_status()  # Raise an exception for bad status codes
+        response.raise_for_status()
         root = ET.fromstring(response.content)
-        # Namespace handling for sitemap XML
-        for url_element in root.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
-            if url_element.text:
-                urls.append(url_element.text)
+
+        # Dynamically get the namespace from root element
+        ns = {'ns': root.tag.split('}')[0].strip('{')}
+        urls = [loc.text for loc in root.findall('.//ns:loc', namespaces=ns) if loc.text]
+
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching sitemap from {sitemap_url}: {e}")
+        print(f"Error fetching sitemap: {e}")
     except ET.ParseError as e:
-        print(f"Error parsing sitemap XML from {sitemap_url}: {e}")
+        print(f"Error parsing XML: {e}")
     return urls
 
 def extract_text_from_urls(urls: list[str]) -> list[dict]:
@@ -68,7 +68,6 @@ def extract_text_from_urls(urls: list[str]) -> list[dict]:
 def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 100) -> list[str]:
     """
     Splits a given text into smaller chunks using a sliding window.
-    This simple method doesn't guarantee sentence boundaries but is robust.
     """
     if not text:
         return []
@@ -80,12 +79,11 @@ def chunk_text(text: str, chunk_size: int = 500, chunk_overlap: int = 100) -> li
         chunk = text[start:end]
         chunks.append(chunk.strip())
         start += chunk_size - chunk_overlap
-    return [chunk for chunk in chunks if chunk] # Remove empty chunks
+    return [chunk for chunk in chunks if chunk]
 
 def embed_and_prepare_for_qdrant(chunks: list[dict]) -> list[PointStruct]:
     """
     Embeds text chunks using Cohere and prepares them as Qdrant PointStruct objects.
-    Qdrant Point IDs can be integers or strings. Here we use strings based on URL and chunk index.
     """
     points = []
     if not chunks:
@@ -97,13 +95,11 @@ def embed_and_prepare_for_qdrant(chunks: list[dict]) -> list[PointStruct]:
         response = cohere_client.embed(
             texts=texts_to_embed,
             model=EMBEDDED_MODEL,
-            input_type='search_document' # Use 'search_document' for RAG
+            input_type='search_document'
         )
         embeddings = response.embeddings
         
         for i, chunk in enumerate(chunks):
-            # Ensure the ID is unique and consistent. Qdrant IDs can be integers or strings.
-            # Using a combination of URL and chunk index as a string ID.
             points.append(PointStruct(id=f"{chunk['url']}-{i}", vector=embeddings[i], payload=chunk))
     except Exception as e:
         print(f"Error embedding chunks with Cohere: {e}")
@@ -113,12 +109,11 @@ def embed_and_prepare_for_qdrant(chunks: list[dict]) -> list[PointStruct]:
 def ensure_collection_exists():
     """
     Checks if the Qdrant collection exists and creates it if it doesn't.
-    VectorParams size (1024) should match the output dimension of EMBEDDED_MODEL (embed-english-v3.0).
     """
     try:
         qdrant_client.get_collection(collection_name=COLLECTION_NAME)
         print(f"Collection '{COLLECTION_NAME}' already exists.")
-    except Exception: # Qdrant raises a Value Error if collection not found
+    except Exception:
         print(f"Collection '{COLLECTION_NAME}' does not exist. Creating...")
         qdrant_client.create_collection(
             collection_name=COLLECTION_NAME,
@@ -139,16 +134,13 @@ def upsert_data_to_qdrant(points: list[PointStruct]):
         qdrant_client.upsert(
             collection_name=COLLECTION_NAME,
             points=points,
-            wait=True # Wait for the operation to be completed
+            wait=True
         )
         print("Data has been successfully upserted to Qdrant.")
     except Exception as e:
         print(f"Error upserting data to Qdrant: {e}")
 
 def main():
-    """
-    Main pipeline for extracting data, chunking, embedding, and upserting to Qdrant.
-    """
     print("Starting RAG data ingestion pipeline...")
     
     # 1. Extract URLs from sitemap
@@ -175,7 +167,7 @@ def main():
         chunks = chunk_text(item['text'])
         for i, chunk_text_content in enumerate(chunks):
             all_chunks.append({
-                'id': f"{item['url']}-{i}", # Unique ID for each chunk
+                'id': f"{item['url']}-{i}",
                 'text': chunk_text_content,
                 'url': item['url']
             })

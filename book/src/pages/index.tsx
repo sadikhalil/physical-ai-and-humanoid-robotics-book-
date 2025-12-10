@@ -5,13 +5,30 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
-import { useEffect } from 'react'; // Import useEffect
-import { useHistory } from '@docusaurus/router'; // Import useHistory
+import { useEffect } from 'react';
+import { useHistory } from '@docusaurus/router';
 
 import styles from './index.module.css';
 
+// Placeholder function to check login status
+const checkLoginStatus = () => {
+  // In a real application, you'd check for a valid token in localStorage,
+  // or make an API call to validate the session.
+  return localStorage.getItem('userToken') ? true : false;
+};
+
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const history = useHistory(); // Initialize useHistory
+
+  const handleStartReading = () => {
+    if (checkLoginStatus()) {
+      history.push('/docs/Part 1 - Foundations/introduction'); // Navigate to the book
+    } else {
+      history.push('/login'); // Redirect to login page
+    }
+  };
+
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -28,9 +45,16 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--secondary button--lg"
-            to="/signup">
+            to="/signup"
+            style={{ marginRight: '10px' }}>
             Sign Up
           </Link>
+          {/* New "Start Reading" button */}
+          <button
+            className="button button--secondary button--lg"
+            onClick={handleStartReading}>
+            Start Reading
+          </button>
         </div>
       </div>
     </header>
@@ -39,14 +63,8 @@ function HomepageHeader() {
 
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
-  const history = useHistory(); // Initialize useHistory
-
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn !== 'true') {
-      history.push('/login'); // Redirect to login page if not logged in
-    }
-  }, [history]);
+  // Removed the useEffect hook that redirected to login automatically
+  // const history = useHistory(); // Not needed here anymore for auto-redirect
 
   return (
     <Layout
