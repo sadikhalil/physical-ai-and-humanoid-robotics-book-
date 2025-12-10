@@ -155,16 +155,4 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
 };
 
-// ✅ ADDING SITEMAP PLUGIN HERE
-(config as any).plugins = [
-  [
-    '@docusaurus/plugin-sitemap',
-    {
-      changefreq: 'weekly',
-      priority: 0.5,
-      filename: 'sitemap.xml',
-    },
-  ],
-];
-
 export default config;
