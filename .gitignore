@@ -26,6 +26,7 @@ __pycache__/
 venv/
 dist/
 *.egg-info/
+/web-app/backend/vendor/
 
 # Docker
 .dockerignore

@@ -1,5 +1,9 @@
 import os
 import sys
+
+# Add vendored dependencies to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'vendor')))
+
 import json
 import google.generativeai as genai
 from fastapi import FastAPI, HTTPException
