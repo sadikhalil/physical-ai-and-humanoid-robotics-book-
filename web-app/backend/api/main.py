@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import google.generativeai as genai
 from fastapi import FastAPI, HTTPException
@@ -11,8 +12,12 @@ from passlib.context import CryptContext
 import cohere
 from qdrant_client import QdrantClient
 
+# Add the project root to the Python path
+# This is necessary for Vercel to find the 'rag' module
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 # Import the retrieve_context function
-from ..rag.retriever import retrieve_context
+from rag.retriever import retrieve_context
 
 load_dotenv()
 
