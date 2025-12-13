@@ -1,8 +1,8 @@
 import os
 import sys
 
-# Add vendored dependencies to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'vendor')))
+# Add the src directory to the Python path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import json
 import google.generativeai as genai
@@ -15,10 +15,6 @@ from passlib.context import CryptContext
 
 import cohere
 from qdrant_client import QdrantClient
-
-# Add the project root to the Python path
-# This is necessary for Vercel to find the 'rag' module
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import the retrieve_context function
 from rag.retriever import retrieve_context
