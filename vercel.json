@@ -6,17 +6,30 @@
   },
   "builds": [
     {
-      "src": "src/api/main.py",
+      "src": "web-app/backend/src/api/main.py",
       "use": "@vercel/python",
       "config": {
         "pythonVersion": "3.9"
+      }
+    },
+    {
+      "src": "book/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "installCommand": "npm install --prefix book",
+        "buildCommand": "npm run build --prefix book",
+        "outputDirectory": "build"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "src/api/main.py"
+      "dest": "web-app/backend/src/api/main.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "book/build/$1"
     }
   ],
   "env": {

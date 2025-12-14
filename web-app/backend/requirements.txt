@@ -9,7 +9,4 @@ requests
 trafilatura
 lxml
 google-generativeai
-google-api-python-client
-google-api-core # Added to ensure 'google' namespace
-grpcio==1.59.0 # Added as a common dependency fix for google libraries
 protobuf==5.27.1
