@@ -9,5 +9,6 @@ requests
 trafilatura
 lxml
 google-generativeai
-google-api-python-client # Added as a speculative fix for 'google' namespace
+google-api-python-client
+google-api-core # Added to ensure 'google' namespace
 protobuf==5.27.1
