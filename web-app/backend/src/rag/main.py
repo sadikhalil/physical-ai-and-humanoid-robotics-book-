@@ -14,8 +14,8 @@ load_dotenv()
 BASE_DOC_URL = "https://physical-ai-and-humanoid-robotics-b-ashy.vercel.app/docs"
 TOC_URL = f"{BASE_DOC_URL}/Part%201%20-%20Foundations/introduction"
 
-COLLECTION_NAME = "humanoid_ai_book"
-EMBED_MODEL = "embed-english-v3.0"
+COLLECTION_NAME = "humanoid ai book"
+EMBED_MODEL = "embed-english-v1" # Changed from embed-english-v2.0
 co = cohere.Client(os.getenv("COHERE_API_KEY"))
 
 qdrant = QdrantClient(
@@ -67,7 +67,7 @@ def extract_text(url):
     return text
 
 # ========= Chunking ==========
-def chunk(text, size=500, overlap=100):
+def chunk(text, size=1024, overlap=100): # Changed size to 1024
     chunks = []
     start = 0
     while start < len(text):
@@ -85,7 +85,7 @@ def ensure_collection():
         print("Creating Qdrant collection...")
         qdrant.create_collection(
             COLLECTION_NAME,
-            vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
+            vectors_config=VectorParams(size=1024, distance=Distance.COSINE), # Changed size to 1024
         )
         print("✔ Created")
 

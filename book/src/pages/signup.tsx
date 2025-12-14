@@ -7,14 +7,15 @@ function SignupPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [gmail, setGmail] = useState(''); // New state for Gmail
   const [softwareBackground, setSoftwareBackground] = useState('');
   const [hardwareBackground, setHardwareBackground] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | string[] | null>(null); // Error can be string or array of strings
   const history = useHistory();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError(null); // Clear previous errors
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
@@ -31,6 +32,7 @@ function SignupPage() {
           username,
           password,
           confirm_password: confirmPassword,
+          gmail, // Include gmail in the payload
           software_background: softwareBackground,
           hardware_background: hardwareBackground,
         }),
@@ -39,8 +41,26 @@ function SignupPage() {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Registration successful! Please log in.');
-        history.push('/login'); // Redirect to login page after successful registration
+        alert('Registration successful! Redirecting to dashboard...');
+        // Save user profile data on first signup only
+        if (localStorage.getItem('hasProfile') !== 'true') {
+          localStorage.setItem('userName', username);
+          localStorage.setItem('userEmail', gmail);
+          localStorage.setItem('hasProfile', 'true');
+          localStorage.setItem('isLoggedIn', 'true'); // Ensure isLoggedIn is also set for new users
+        }
+        history.push('/dashboard'); // Redirect to dashboard
+      } else if (response.status === 422) {
+        // Handle validation errors from FastAPI
+        if (data.detail && Array.isArray(data.detail)) {
+          const validationErrors = data.detail.map((err: any) => {
+            const field = err.loc && err.loc.length > 1 ? err.loc[1] : 'Unknown field';
+            return `${field}: ${err.msg}`;
+          });
+          setError(validationErrors);
+        } else {
+          setError(data.detail || 'Validation failed.');
+        }
       } else {
         setError(data.detail || 'Registration failed.');
       }
@@ -70,6 +90,17 @@ function SignupPage() {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                required
+              />
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
+              <label htmlFor="gmail" style={{ display: 'block', marginBottom: '0.5rem' }}>Gmail:</label>
+              <input
+                type="email"
+                id="gmail"
+                value={gmail}
+                onChange={(e) => setGmail(e.target.value)}
                 style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
                 required
               />
@@ -119,7 +150,13 @@ function SignupPage() {
                 // Removed required attribute
               />
             </div>
-            {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
+            {error && (Array.isArray(error) ? (
+              <ul style={{ color: 'red', marginBottom: '1rem', paddingLeft: '20px' }}>
+                {error.map((msg, index) => <li key={index}>{msg}</li>)}
+              </ul>
+            ) : (
+              <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>
+            ))}
             <button
               type="submit"
               className="button button--primary button--lg"

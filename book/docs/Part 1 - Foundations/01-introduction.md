@@ -1,3 +1,9 @@
+---
+id: introduction
+slug: /introduction
+title: Introduction to Physical AI & Humanoid Robotics
+---
+
 # Chapter 1: Introduction to Physical AI & Humanoid Robotics
 
 Welcome to "Physical AI & Humanoid Robotics: A Hybrid Approach"! This book embarks on an exciting journey into the convergence of artificial intelligence and physical robotics, with a special focus on humanoid forms. As technology advances, robots are no longer confined to industrial assembly lines; they are stepping into our homes, hospitals, and even classrooms, becoming more interactive and intelligent.

@@ -17,7 +17,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Part 1: Foundations',
       items: [
-        { type: 'doc', id: 'Part 1 - Foundations/introduction' },
+        { type: 'doc', id: 'introduction' },
         { type: 'doc', id: 'Part 1 - Foundations/physical-ai-basics' },
         { type: 'doc', id: 'Part 1 - Foundations/humanoid-systems' },
         { type: 'doc', id: 'Part 1 - Foundations/anatomy' },

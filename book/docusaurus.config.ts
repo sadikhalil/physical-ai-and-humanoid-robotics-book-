@@ -9,6 +9,11 @@ const config: Config = {
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
 
+  // Add custom fields
+  customFields: {
+    API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:8000',
+  },
+
   // Future flags
   future: {
     v4: true,
@@ -32,6 +37,8 @@ const config: Config = {
       'classic',
       {
         docs: {
+          path: 'book/docs',
+          routeBasePath: 'docs',
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',

@@ -2,75 +2,112 @@ import os
 from dotenv import load_dotenv
 import cohere
 from qdrant_client import QdrantClient
-from qdrant_client.models import Query
+
 # Load environment variables
 load_dotenv()
 
-# Qdrant & Cohere setup
-COLLECTION_NAME = "humanoid ai book" 
+# =========================
+# CONFIG
+# =========================
+COLLECTION_NAME = "humanoid ai book"
 
-# Cohere Client for embedding
-co = cohere.Client(api_key=os.getenv("COHERE_API_KEY"))
-EMBED_MODEL = "embed-english-v3.0"
+QDRANT_URL = os.getenv("QDRANT_URL")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
 
-# Qdrant Client for vector search
+EMBED_MODEL = "embedding-gecko-001"
+
+# =========================
+# CLIENTS (initialize once)
+# =========================
+co = cohere.Client(COHERE_API_KEY)
+
 qdrant = QdrantClient(
-    url=os.getenv("QDRANT_URL"),
-    api_key=os.getenv("QDRANT_API_KEY")
+    url=QDRANT_URL,
+    api_key=QDRANT_API_KEY
 )
 
-def retrieve_context(question: str, top_k: int = 5):
+# =========================
+# RETRIEVER
+# =========================
+def retrieve_context(question: str, top_k: int = 5) -> list[str]:
     """
-    Retrieve top-k relevant chunks from Qdrant for a given question.
+    Embed the user question using Cohere and retrieve top-k
+    relevant chunks from Qdrant.
     """
     try:
-        # Embed the user query with the same input_type as used during indexing
-        q_embedding = co.embed(
+        # 1️⃣ Embed the query (MUST match indexing input_type)
+        embedding_response = co.embed(
             texts=[question],
             model=EMBED_MODEL,
-            input_type="search_query"  # Use search_query for queries
-        ).embeddings[0]
+            input_type="search_query"
+        )
 
-        # Search Qdrant collection using the query method
-        results = qdrant.query(
+        query_vector = embedding_response.embeddings[0]
+
+        # 2️⃣ Search Qdrant (CORRECT API)
+        search_results = qdrant.search(
             collection_name=COLLECTION_NAME,
-            query=Query(
-                query_vector=q_embedding,
-            ),
+            query_vector=query_vector,
             limit=top_k,
             with_payload=True
         )
 
-        # Extract text from payload
-        context_chunks = [hit.payload["text"] for hit in results]
+        # 3️⃣ Extract text payload
+        context_chunks = [
+            hit.payload.get("text", "")
+            for hit in search_results
+            if hit.payload and "text" in hit.payload
+        ]
+
         return context_chunks
 
     except Exception as e:
         print(f"⚠ Error retrieving context: {e}")
         return []
 
-def build_prompt(question: str, context_chunks: list):
+# =========================
+# PROMPT BUILDER
+# =========================
+def build_prompt(question: str, context_chunks: list[str]) -> str:
     """
-    Combine retrieved chunks into a single prompt for the chatbot.
+    Build prompt using retrieved book chunks.
     """
-    context_text = "\n\n".join(context_chunks)
-    prompt = f"""
-Use the following book content to answer the question accurately:
-
-{context_text}
+    if not context_chunks:
+        return f"""
+The book does not contain information to answer this question.
 
 Question: {question}
 Answer:
 """
-    return prompt
 
-# Quick test
+    context_text = "\n\n".join(context_chunks)
+
+    return f"""
+You are a book-based assistant.
+Answer ONLY using the content below.
+If the answer is not present, say: "Information not found in the book."
+
+BOOK CONTENT:
+{context_text}
+
+QUESTION:
+{question}
+
+ANSWER:
+"""
+
+# =========================
+# LOCAL TEST
+# =========================
 if __name__ == "__main__":
     user_question = input("Ask a question: ")
-    chunks = retrieve_context(user_question, top_k=5)
+    chunks = retrieve_context(user_question)
+
     if not chunks:
         print("⚠ No relevant content found.")
     else:
         prompt = build_prompt(user_question, chunks)
-        print("\n--- Prompt to send to chatbot ---\n")
+        print("\n--- PROMPT TO SEND TO GEMINI ---\n")
         print(prompt)
+

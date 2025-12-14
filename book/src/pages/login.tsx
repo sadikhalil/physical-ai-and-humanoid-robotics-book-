@@ -6,40 +6,34 @@ import { useHistory } from '@docusaurus/router'; // Import useHistory for naviga
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [gmail, setGmail] = useState(''); // New state for Gmail
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState('');
+
+  const [error, setError] = useState<string | string[] | null>(null); // Error can be string or array of strings
   const history = useHistory();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError(null); // Clear previous errors
 
-    try {
-      const response = await fetch('http://localhost:8000/login', { // Assuming backend runs on 8000
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        if (rememberMe) {
-          localStorage.setItem('rememberedUsername', username);
-        } else {
-          localStorage.removeItem('rememberedUsername');
-        }
-        localStorage.setItem('isLoggedIn', 'true'); // Store login status
-        alert('Login successful! Redirecting to book...');
-        history.push('/docs/Part 1 - Foundations/introduction'); // Redirect to the book introduction
+    // Placeholder authentication: hardcoded username and password
+    if (username === 'admin' && password === 'password') {
+      if (rememberMe) {
+        localStorage.setItem('rememberedUsername', username);
       } else {
-        setError(data.detail || 'Login failed.');
+        localStorage.removeItem('rememberedUsername');
       }
-    } catch (err) {
-      setError('Network error or server unavailable.');
-      console.error('Login error:', err);
+      localStorage.setItem('isLoggedIn', 'true'); // Store login status
+      alert('Login successful!');
+
+      const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+      if (lastVisitedPage) {
+        history.push(lastVisitedPage); // Redirect to the last visited page
+      } else {
+        history.push('/dashboard'); // Default redirect to dashboard
+      }
+    } else {
+      setError('Invalid username or password.');
     }
   };
 
@@ -53,7 +47,7 @@ function LoginPage() {
     // Check if user is already logged in
     const loggedIn = localStorage.getItem('isLoggedIn');
     if (loggedIn === 'true') {
-      history.push('/docs/Part 1 - Foundations/introduction');
+      history.push('/dashboard'); // Redirect to dashboard if already logged in
     }
   }, [history]);
 
@@ -82,6 +76,17 @@ function LoginPage() {
               />
             </div>
             <div style={{ marginBottom: '1rem' }}>
+              <label htmlFor="gmail" style={{ display: 'block', marginBottom: '0.5rem' }}>Gmail:</label>
+              <input
+                type="email" // Use type="email" for better input validation
+                id="gmail"
+                value={gmail}
+                onChange={(e) => setGmail(e.target.value)}
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                required // Making it required as per user's request to "ask user for gmail"
+              />
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
               <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem' }}>Password:</label>
               <input
                 type="password"
@@ -102,7 +107,14 @@ function LoginPage() {
               />
               <label htmlFor="rememberMe">Remember Me</label>
             </div>
-            {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
+
+            {error && (Array.isArray(error) ? (
+              <ul style={{ color: 'red', marginBottom: '1rem', paddingLeft: '20px' }}>
+                {error.map((msg, index) => <li key={index}>{msg}</li>)}
+              </ul>
+            ) : (
+              <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>
+            ))}
             <button
               type="submit"
               className="button button--primary button--lg"
