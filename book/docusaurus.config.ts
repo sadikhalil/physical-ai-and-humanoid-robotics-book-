@@ -27,17 +27,17 @@ const config: Config = {
 
   onBrokenLinks: 'throw',
 
-  // i18n: {
-  //   defaultLocale: 'en',
-  //   locales: ['en'],
-  // },
+  i18n: { // Uncommenting the i18n block
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
 
   presets: [
     [
       'classic',
       {
         docs: {
-          path: 'book/docs',
+          path: 'docs', // Correct path if Docusaurus project root is 'book/'
           routeBasePath: 'docs',
           sidebarPath: './sidebars.ts',
           editUrl:

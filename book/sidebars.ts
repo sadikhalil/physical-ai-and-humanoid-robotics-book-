@@ -15,56 +15,55 @@ const sidebars: SidebarsConfig = {
   tutorialSidebar: [
     {
       type: 'category',
-      label: 'Part 1: Foundations',
+      label: 'Part 1 - Foundations', // Label matching the prefix
       items: [
-        { type: 'doc', id: 'introduction' },
-        { type: 'doc', id: 'Part 1 - Foundations/physical-ai-basics' },
-        { type: 'doc', id: 'Part 1 - Foundations/humanoid-systems' },
         { type: 'doc', id: 'Part 1 - Foundations/anatomy' },
-        { type: 'doc', id: 'Part 1 - Foundations/locomotion-balance' },
         { type: 'doc', id: 'Part 1 - Foundations/history-evolution' },
+        { type: 'doc', id: 'Part 1 - Foundations/humanoid-systems' },
+        { type: 'doc', id: 'Part 1 - Foundations/introduction' },
+        { type: 'doc', id: 'Part 1 - Foundations/locomotion-balance' },
+        { type: 'doc', id: 'Part 1 - Foundations/physical-ai-basics' },
         { type: 'doc', id: 'Part 1 - Foundations/physical-ai-principles' },
       ],
     },
     {
       type: 'category',
-      label: 'Part 2: Humanoid Robot Anatomy & Mechanics',
+      label: 'Part 2 - Humanoid Robot Anatomy & Mechanics', // Label matching the prefix
       items: [
+        { type: 'doc', id: 'Part 2 - Humanoid Robot Anatomy & Mechanics/manipulation-grasping' },
         { type: 'doc', id: 'Part 2 - Humanoid Robot Anatomy & Mechanics/robot-anatomy-actuation' },
         { type: 'doc', id: 'Part 2 - Humanoid Robot Anatomy & Mechanics/sensors-perception' },
-        { type: 'doc', id: 'Part 2 - Humanoid Robot Anatomy & Mechanics/manipulation-grasping' },
       ],
     },
     {
       type: 'category',
-      label: 'Part 3: AI & Control Systems',
+      label: 'Part 3 - AI & Control Systems', // Label matching the prefix
       items: [
-        { type: 'doc', id: 'Part 3 - AI & Control Systems/control-systems' },
-        { type: 'doc', id: 'Part 3 - AI & Control Systems/learning-in-physical-ai' },
         { type: 'doc', id: 'Part 3 - AI & Control Systems/computer-vision-perception-ai' },
+        { type: 'doc', id: 'Part 3 - AI & Control Systems/control-systems' },
         { type: 'doc', id: 'Part 3 - AI & Control Systems/human-robot-interaction' },
+        { type: 'doc', id: 'Part 3 - AI & Control Systems/learning-in-physical-ai' },
       ],
     },
     {
       type: 'category',
-      label: 'Part 4: Implementation & Projects',
+      label: 'Part 4 - Implementation & Projects', // Label matching the prefix
       items: [
         { type: 'doc', id: 'Part 4 - Implementation & Projects/educational-hybrid-learning-kits' },
-        { type: 'doc', id: 'Part 4 - Implementation & Projects/project-planning-task-management' },
         { type: 'doc', id: 'Part 4 - Implementation & Projects/practical-implementation-examples' },
+        { type: 'doc', id: 'Part 4 - Implementation & Projects/project-planning-task-management' },
         { type: 'doc', id: 'Part 4 - Implementation & Projects/rag-chatbot-integration' },
-
         { type: 'doc', id: 'Part 4 - Implementation & Projects/user-personalization-multi-language' },
       ],
     },
     {
       type: 'category',
-      label: 'Part 5: Testing, Research & Future',
+      label: 'Part 5 - Testing, Research & Future', // Label matching the prefix
       items: [
-        { type: 'doc', id: 'Part 5 - Testing, Research & Future/testing-validation-debugging' },
-        { type: 'doc', id: 'Part 5 - Testing, Research & Future/case-studies-research-projects' },
         { type: 'doc', id: 'Part 5 - Testing, Research & Future/advanced-ai-algorithms' },
+        { type: 'doc', id: 'Part 5 - Testing, Research & Future/case-studies-research-projects' },
         { type: 'doc', id: 'Part 5 - Testing, Research & Future/future-trends-directions' },
+        { type: 'doc', id: 'Part 5 - Testing, Research & Future/testing-validation-debugging' },
       ],
     },
   ],
