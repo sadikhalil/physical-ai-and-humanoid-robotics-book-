@@ -6,7 +6,7 @@
   },
   "builds": [
     {
-      "src": "web-app/backend/src/api/main.py",
+      "src": "backend/src/api/main.py",
       "use": "@vercel/python",
       "config": {
         "pythonVersion": "3.9"
@@ -25,7 +25,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "web-app/backend/src/api/main.py"
+      "dest": "backend/src/api/main.py"
     },
     {
       "src": "/(.*)",
