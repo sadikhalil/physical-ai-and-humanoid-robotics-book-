@@ -30,3 +30,6 @@ dist/
 
 # Docker
 .dockerignore
+
+.vercel
+.env*.local

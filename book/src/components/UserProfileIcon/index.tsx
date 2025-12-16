@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from '@docusaurus/Link'; // Assuming Link is useful for a profile page
 
-const UserProfileIcon: React.FC = () => {
+const UserProfileIcon= () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {

@@ -28,5 +28,11 @@
         "hashed_password": "$2b$12$QvHBgHsEgMUJGEfzxfaSt.BbvtZxa142Q47r1nCNn0ly9NPt2LiJy",
         "software_background": "",
         "hardware_background": ""
+    },
+    "saad ": {
+        "username": "saad ",
+        "hashed_password": "$2b$12$GSzIZKm1jJr4rIzXLJyAGe9GXOjnrG7.MvYBRU4ad8pwflsPnf5F2",
+        "software_background": "",
+        "hardware_background": ""
     }
 }
