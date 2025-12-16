@@ -1,0 +1,31 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Backend for Physical AI Humanoid Robotic Book project"
+requires-python = ">=3.12"
+
+[project.scripts]
+app = "src.api.main:app"
+
+# You can add dependencies from requirements.txt here if you want to
+# manage them with a pyproject.toml-aware tool, e.g., pip-tools or Poetry.
+# For now, we'll keep requirements.txt as the primary source of dependencies.
+# dependencies = [
+#     "fastapi",
+#     "uvicorn",
+#     "google-generativeai",
+#     "python-dotenv",
+#     "passlib[bcrypt]",
+#     "qdrant-client",
+#     "cohere",
+#     "requests",
+#     "trafilatura",
+#     "protobuf==5.27.1",
+# ]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
