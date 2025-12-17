@@ -1,7 +1,7 @@
 // src/components/UserProfile.tsx
 import React, { useState, useEffect } from 'react';
 
-const UserProfile: React.FC = () => {
+const UserProfile = () => {
   const [userName, setUserName] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

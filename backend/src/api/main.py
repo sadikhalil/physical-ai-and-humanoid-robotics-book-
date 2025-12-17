@@ -49,6 +49,7 @@ app = FastAPI()
 # Configure CORS
 origins = [
     "http://localhost:3000",  # Docusaurus dev server
+    "https://sadiakhalil-book-backend.hf.space" # Hugging Face Space URL for the backend
 ]
 
 app.add_middleware(
@@ -58,6 +59,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# NOTE: uvicorn.run binds the server to a specific host and port for internal access.
+# The external URL (e.g., from Hugging Face Spaces) is typically handled by the
+# deployment platform which proxies requests to the internally bound address.
+# The `host="0.0.0.0"` allows the application to be accessible from outside the container,
+# and `port=8000` is the internal port it listens on.
 
 # --- User Management ---
 
@@ -177,11 +184,12 @@ def generate_answer(question: str, context_chunks: Optional[List[dict]] = None, 
     """
     context = ""
     if context_chunks:
-        context = "\n\n".join([chunk['text'] for chunk in context_chunks])
+        # Assuming context_chunks is a list of dictionaries with a 'text' key
+        context = "\n\n".join([chunk.get('text', '') for chunk in context_chunks])
 
     prompt = ""
     if context:
-        # Scenario 1: Context is available. Instruct LLM to use it strictly.
+        # Scenario 1: Context is available.
         prompt = f"""
         You are a book-focused AI assistant. Your task is to answer questions strictly using content from a book.
         You have been provided with relevant book content.
@@ -206,7 +214,7 @@ def generate_answer(question: str, context_chunks: Optional[List[dict]] = None, 
         Answer:
         """
     else:
-        # Scenario 2: No context is available. Instruct LLM for strict fallback.
+        # Scenario 2: No context is available.
         prompt = f"""
         You are a book-focused AI assistant. No relevant book content was found for the question.
 
@@ -223,12 +231,20 @@ def generate_answer(question: str, context_chunks: Optional[List[dict]] = None, 
         Answer:
         """
     
+    print("\n--- DEBUG: PROMPT SENT TO GENERATIVE MODEL ---\n")
+    print(prompt)
+    print("\n--- END OF PROMPT ---\n")
+
     try:
         response = generation_model.generate_content(prompt)
         final_answer = response.text.strip()
+        print(f"--- DEBUG: GENERATED ANSWER ---\n{final_answer}\n--- END OF ANSWER ---\n")
         return final_answer
     except Exception as e:
-        print(f"Error generating answer with Google Generative AI: {e}")
+        print(f"--- DEBUG: FATAL ERROR during answer generation ---")
+        print(f"Exception Type: {type(e).__name__}")
+        print(f"Exception Details: {e}")
+        print("-------------------------------------------------")
         return "I'm sorry, there was an error generating the answer."
 
 @app.post("/chat", response_model=ChatResponse)
@@ -237,6 +253,7 @@ async def chat_endpoint(request: ChatRequest):
     The main chatbot endpoint.
     Receives a question, orchestrates semantic_search and website_search, and generates a response.
     """
+    print(f"--- NEW CHAT REQUEST ---")
     print(f"Received question: {request.question}")
     
     retrieved_chunks = []
@@ -244,25 +261,34 @@ async def chat_endpoint(request: ChatRequest):
 
     # 1. Try semantic_search (Qdrant) first
     try:
+        print("\nStep 1: Attempting Qdrant retrieval (semantic_search)...")
         retrieved_chunks = retrieve_context(request.question, top_k=3)
         if retrieved_chunks:
             source_type = "[Retriever]"
-            print(f"Retrieved {len(retrieved_chunks)} chunks from Qdrant.")
+            print(f"  [SUCCESS] Retrieved {len(retrieved_chunks)} chunks from Qdrant.")
+            # print(f"  [DEBUG] Qdrant chunks: {retrieved_chunks}")
+        else:
+            print("  [INFO] Qdrant retrieval returned no results.")
     except Exception as e:
-        print(f"Error during Qdrant retrieval: {e}. Falling back to website search.")
+        print(f"  [ERROR] Error during Qdrant retrieval: {e}. Falling back.")
         retrieved_chunks = [] # Ensure it's empty if an error occurs
 
     # 2. If semantic_search yields no content, fall back to website_search
     if not retrieved_chunks:
         try:
+            print("\nStep 2: Fallback to Website Docs retrieval...")
             retrieved_chunks = website_retrieve_content(request.question, top_k=3)
             if retrieved_chunks:
                 source_type = "[Website Docs]"
-                print(f"Retrieved {len(retrieved_chunks)} chunks from Website Docs.")
+                print(f"  [SUCCESS] Retrieved {len(retrieved_chunks)} chunks from Website Docs.")
+                # print(f"  [DEBUG] Website chunks: {retrieved_chunks}")
+            else:
+                print("  [INFO] Website retrieval returned no results.")
         except Exception as e:
-            print(f"Error during Website search: {e}. No content from website search.")
+            print(f"  [ERROR] Error during Website search: {e}.")
             retrieved_chunks = [] # Ensure it's empty if an error occurs
-            
+    
+    print("\nStep 3: Generating answer...")
     # Generate an answer using the retrieved chunks and the determined source
     answer = generate_answer(request.question, retrieved_chunks, source_type)
     
@@ -271,6 +297,7 @@ async def chat_endpoint(request: ChatRequest):
     if retrieved_chunks:
         sources = list(set([chunk.get('url', 'N/A') for chunk in retrieved_chunks if 'url' in chunk]))
     
+    print("\n--- END OF CHAT REQUEST ---\n")
     return ChatResponse(answer=answer, sources=sources)
 
 

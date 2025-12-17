@@ -15,7 +15,7 @@ QDRANT_URL = os.getenv("QDRANT_URL")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")
 
-EMBED_MODEL = "embedding-gecko-001"
+EMBED_MODEL = "embed-english-v1"
 
 # =========================
 # CLIENTS (initialize once)
