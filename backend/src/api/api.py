@@ -49,7 +49,7 @@ app = FastAPI()
 # Configure CORS
 origins = [
     "http://localhost:3000",  # Docusaurus dev server
-    "https://sadiakhalil-book-backend.hf.space" # Hugging Face Space URL for the backend
+    "https://sadiakhalil-book-backend.hf.space/ask" # Hugging Face Space URL for the backend
 ]
 
 app.add_middleware(
@@ -71,7 +71,9 @@ app.add_middleware(
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-USERS_FILE = "users.json"
+# Construct an absolute path to users.json relative to this file's location
+API_DIR = os.path.dirname(os.path.abspath(__file__))
+USERS_FILE = os.path.join(API_DIR, "users.json")
 
 class User(BaseModel):
     username: str
@@ -301,6 +303,3 @@ async def chat_endpoint(request: ChatRequest):
     return ChatResponse(answer=answer, sources=sources)
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

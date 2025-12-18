@@ -1,12 +1,13 @@
 fastapi
 uvicorn
 python-dotenv
-passlib==1.7.4
-bcrypt==3.2.0
-qdrant-client==1.8.0
+passlib
+bcrypt
+qdrant-client
 cohere
 requests
 trafilatura
+beautifulsoup4
 lxml
 google-generativeai
 protobuf==5.27.1

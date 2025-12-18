@@ -23,7 +23,7 @@ function SignupPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/register', { // Assuming backend runs on 8000
+      const response = await fetch('https://sadiakhalil-book-backend.hf.space/register', { // Assuming backend runs on 8000
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

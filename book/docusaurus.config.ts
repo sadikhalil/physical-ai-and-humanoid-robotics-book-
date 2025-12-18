@@ -11,7 +11,7 @@ const config: Config = {
 
   // Add custom fields
   customFields: {
-    API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:8000',
+    API_BASE_URL: process.env.API_BASE_URL || 'https://sadiakhalil-book-backend.hf.space',
   },
 
   // Future flags
