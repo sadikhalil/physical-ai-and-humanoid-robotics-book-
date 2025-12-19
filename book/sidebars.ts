@@ -17,13 +17,13 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Part 1 - Foundations', // Label matching the prefix
       items: [
-        { type: 'doc', id: 'Part 1 - Foundations/anatomy' },
-        { type: 'doc', id: 'Part 1 - Foundations/history-evolution' },
-        { type: 'doc', id: 'Part 1 - Foundations/humanoid-systems' },
-        { type: 'doc', id: 'Part 1 - Foundations/introduction' },
-        { type: 'doc', id: 'Part 1 - Foundations/locomotion-balance' },
-        { type: 'doc', id: 'Part 1 - Foundations/physical-ai-basics' },
-        { type: 'doc', id: 'Part 1 - Foundations/physical-ai-principles' },
+        { type: 'doc', id: 'Part 1 - Foundations/01-introduction' },
+        { type: 'doc', id: 'Part 1 - Foundations/02-physical-ai-basics' },
+        { type: 'doc', id: 'Part 1 - Foundations/03-humanoid-systems' },
+        { type: 'doc', id: 'Part 1 - Foundations/04-anatomy' },
+        { type: 'doc', id: 'Part 1 - Foundations/05-locomotion-balance' },
+        { type: 'doc', id: 'Part 1 - Foundations/06-history-evolution' },
+        { type: 'doc', id: 'Part 1 - Foundations/07-physical-ai-principles' },
       ],
     },
     {

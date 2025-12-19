@@ -109,7 +109,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/Part 1 - Foundations/introduction',
+              to: '/docs/Part 1 - Foundations/01-introduction',
             },
           ],
         },
