@@ -38,7 +38,7 @@ const config: Config = {
       {
         docs: {
           path: 'docs', // Correct path if Docusaurus project root is 'book/'
-          routeBasePath: 'docs',
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
@@ -109,7 +109,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/docs/part-1-foundations/01-introduction',
+              to: '/Part 1 - Foundations/introduction',
             },
           ],
         },
