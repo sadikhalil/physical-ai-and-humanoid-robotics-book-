@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "20.x"
+  },
   "build": {
     "env": {
       "PYTHON_VERSION": "3.9"

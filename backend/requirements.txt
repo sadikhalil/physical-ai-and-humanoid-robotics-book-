@@ -9,5 +9,5 @@ requests
 trafilatura
 beautifulsoup4
 lxml
-google-generativeai
+google-generativeai==0.8.6
 protobuf==5.27.1
