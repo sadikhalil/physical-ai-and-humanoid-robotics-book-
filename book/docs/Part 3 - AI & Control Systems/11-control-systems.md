@@ -1,3 +1,7 @@
+---
+id: control-systems
+---
+
 # Chapter 11: Control Systems for Humanoids
 
 

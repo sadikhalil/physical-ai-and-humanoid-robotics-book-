@@ -1,3 +1,7 @@
+---
+id: computer-vision-perception-ai
+---
+
 # Chapter 13: Computer Vision and Perception AI
 
 ## Introduction

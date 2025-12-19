@@ -1,3 +1,7 @@
+---
+id: physical-ai-basics
+---
+
 # Chapter 2: Physical AI Basics
 
 

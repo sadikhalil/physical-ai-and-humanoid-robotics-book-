@@ -1,3 +1,7 @@
+---
+id: locomotion-balance
+---
+
 # Chapter 5: Locomotion & Balance
 
 

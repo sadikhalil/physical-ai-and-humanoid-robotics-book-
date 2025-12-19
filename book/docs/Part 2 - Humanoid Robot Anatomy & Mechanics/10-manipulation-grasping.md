@@ -1,3 +1,7 @@
+---
+id: manipulation-grasping
+---
+
 # Chapter 10: Manipulation & Grasping
 
 ## Introduction

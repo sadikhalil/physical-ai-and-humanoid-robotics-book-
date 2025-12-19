@@ -1,3 +1,7 @@
+---
+id: anatomy
+---
+
 # Chapter 4: Anatomy of a Humanoid Robot
 
 Humanoid robots are complex machines designed to mimic the human body in form and function. Understanding their anatomy is crucial to comprehending their capabilities and limitations. This chapter delves into the fundamental components that make up a humanoid robot, from the structural elements that enable movement to the sophisticated systems that allow them to perceive and interact with the world.

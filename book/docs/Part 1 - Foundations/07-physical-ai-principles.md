@@ -1,3 +1,7 @@
+---
+id: physical-ai-principles
+---
+
 # Chapter 7: Physical AI Principles
 
 

@@ -1,3 +1,7 @@
+---
+id: learning-in-physical-ai
+---
+
 # Chapter 12: Learning in Physical AI
 
 ## Introduction

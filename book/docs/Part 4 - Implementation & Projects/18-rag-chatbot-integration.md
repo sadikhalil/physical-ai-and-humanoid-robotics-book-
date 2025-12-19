@@ -1,3 +1,7 @@
+---
+id: rag-chatbot-integration
+---
+
 # Chapter 18: RAG Chatbot Integration
 
 ## Introduction

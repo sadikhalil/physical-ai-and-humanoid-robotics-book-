@@ -1,3 +1,7 @@
+---
+id: advanced-ai-algorithms
+---
+
 # Chapter 22: Advanced AI Algorithms
 
 ## Introduction

@@ -1,3 +1,7 @@
+---
+id: case-studies-research-projects
+---
+
 # Chapter 21: Case Studies & Research Projects
 
 ## Introduction

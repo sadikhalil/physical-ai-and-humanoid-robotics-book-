@@ -1,3 +1,7 @@
+---
+id: robot-anatomy-actuation
+---
+
 # Chapter 8: Robot Anatomy and Actuation
 
 

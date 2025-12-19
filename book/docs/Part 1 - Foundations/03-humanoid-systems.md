@@ -1,3 +1,7 @@
+---
+id: humanoid-systems
+---
+
 # Chapter 3: Humanoid Robot Types
 
 Humanoid robots are advanced machines designed to mimic the human form and often human movements. They are developed for various purposes, from research and assistance to exploration and entertainment. This chapter provides an overview of some prominent humanoid robots, highlighting their unique features and applications.

@@ -1,3 +1,7 @@
+---
+id: sensors-perception
+---
+
 # Chapter 9: Sensors and Perception Systems
 
 

@@ -1,3 +1,7 @@
+---
+id: educational-hybrid-learning-kits
+---
+
 # Chapter 15: Educational Hybrid Learning Kits
 
 ## Introduction

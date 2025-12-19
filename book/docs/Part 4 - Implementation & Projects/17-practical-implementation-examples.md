@@ -1,3 +1,7 @@
+---
+id: practical-implementation-examples
+---
+
 # Chapter 17: Practical Implementation Examples
 
 ## Introduction

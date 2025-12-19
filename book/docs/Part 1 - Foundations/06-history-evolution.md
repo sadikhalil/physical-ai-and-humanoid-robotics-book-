@@ -1,3 +1,7 @@
+---
+id: history-evolution
+---
+
 # Chapter 6: History and Evolution of Humanoid Robotics
 
 Humanoid robotics, a field at the intersection of engineering, artificial intelligence, and design, has a rich history spanning centuries, moving from mythological concepts to sophisticated modern machines.

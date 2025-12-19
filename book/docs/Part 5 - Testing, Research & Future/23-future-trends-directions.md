@@ -1,3 +1,7 @@
+---
+id: future-trends-directions
+---
+
 # Chapter 23: Future Trends & Directions
 
 ## Introduction
