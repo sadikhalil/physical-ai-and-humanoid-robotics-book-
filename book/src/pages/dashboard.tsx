@@ -9,11 +9,11 @@ function Dashboard() {
         <h1>Welcome to your Dashboard!</h1>
         <p>You have successfully logged in or signed up.</p>
         <div style={{ marginTop: '2rem' }}>
-          <Link
+          {/* <Link
             className="button button--primary button--lg"
-            to="/docs/introduction">
+            to="/Part 1 - Foundations/introduction">
             Start Reading the Book
-          </Link>
+          </Link> */}
         </div>
       </main>
     </Layout>
