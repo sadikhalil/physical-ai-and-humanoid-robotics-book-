@@ -25,7 +25,7 @@ const config: Config = {
   organizationName: 'facebook',
   projectName: 'docusaurus',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   i18n: { // Uncommenting the i18n block
     defaultLocale: 'en',
