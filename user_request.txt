@@ -1,0 +1,1 @@
+The `book/src/pages/chatbot.css` file is currently empty. To fix the chatbot's appearance, I need the correct CSS content for this file. Please provide the content you wish to put into `book/src/pages/chatbot.css`.

@@ -1,0 +1,288 @@
+/* book/src/pages/chatbot.css */
+
+/* Pastel Palette */
+:root {
+  --chatbot-color-mint: #aad3b4; /* Light Mint */
+  --chatbot-color-mint-rgb: 212, 237, 218; /* RGB for Mint */
+  --chatbot-color-coral: #ffe0e4; /* Light Coral */
+  --chatbot-color-coral-rgb: 255, 224, 228; /* RGB for Coral */
+  --chatbot-color-lavender: #8c8ca0; /* Light Lavender */
+  --chatbot-color-lavender-rgb: 230, 230, 250; /* RGB for Lavender */
+
+  /* Neutrals */
+  --chatbot-color-neutral-light: #f8f8f8; /* Off-white */
+  --chatbot-color-neutral-medium: #dddddd; /* Light Gray */
+  --chatbot-color-neutral-dark: #8b7c7c; /* Dark Gray for text */
+}
+
+.chatbot-page-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--ifm-navbar-height) - var(--ifm-footer-height, 0px)); /* Adjust as needed */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, var(--chatbot-color-mint) 0%, var(--chatbot-color-lavender) 100%); /* Subtle gradient background */
+}
+
+.chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.chatbot-page-header {
+  font-size: 1.8em; /* Reduced header size */
+  margin: 0;
+  color: var(--chatbot-color-neutral-dark);
+}
+
+.clear-history-button {
+  background-color: var(--ifm-color-danger);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chatbot-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ifm-hr-border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--ifm-background-color);
+}
+
+.chatbot-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.message-container.user {
+  justify-content: flex-end;
+}
+
+.bot-avatar {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  color: var(--ifm-color-primary);
+}
+
+.message {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background: rgba(225, 135, 135, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--chatbot-color-mint-rgb), 0.5); /* Use Mint from palette */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(167, 120, 120, 0.3);
+  color: var(--ifm-font-color-base); /* Retain original color */
+}
+
+.message.user {
+  background-color: var(--chatbot-color-neutral-light); /* Lighter background */
+  color: var(--chatbot-color-neutral-dark); /* Darker text for contrast */
+  border: 1px solid var(--chatbot-color-neutral-medium); /* Subtle border */
+  border-radius: 12px; /* Consistent with bot bubble */
+  box-shadow: 0 2px 10px rgba(198, 189, 189, 0.1); /* Subtle shadow */
+}
+
+.message p {
+  margin: 0;
+}
+
+.message-sources {
+  margin-top: 10px;
+  font-size: 0.85em;
+  color: var(--ifm-font-color-secondary);
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace; /* Monospaced font */
+}
+
+.message-sources .source-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Spacing between chips */
+  margin-top: 5px;
+}
+
+.source-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(var(--chatbot-color-mint-rgb), 0.15); /* Light mint background */
+  border: 1px solid rgba(var(--chatbot-color-mint-rgb), 0.5); /* Mint accent border */
+  border-radius: 20px; /* Pill shape */
+  padding: 5px 10px;
+  font-size: 0.8em;
+  color: var(--chatbot-color-neutral-dark); /* Dark neutral text for contrast */
+  text-decoration: none; /* Remove underline from links */
+  transition: background-color 0.2s ease;
+}
+
+.source-chip:hover {
+  background-color: rgba(var(--chatbot-color-mint-rgb), 0.3);
+}
+
+.source-chip-icon {
+  margin-right: 5px;
+  font-size: 0.9em; /* Adjust icon size */
+}
+
+.message-actions {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.message-actions button {
+  background: none;
+  border: 1px solid var(--ifm-color-secondary);
+  color: var(--ifm-color-secondary);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 0.8em;
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace; /* Monospaced font */
+}
+
+.message-actions button:hover {
+  background-color: var(--ifm-color-secondary);
+  color: rgb(108, 102, 102);
+}
+
+
+.chatbot-input {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid var(--ifm-hr-border-color);
+  background-color: var(--ifm-background-color);
+}
+
+.chatbot-input textarea {
+  flex-grow: 1;
+  padding: 12px 15px; /* Increased padding */
+  border: 1px solid var(--chatbot-color-neutral-medium); /* Use neutral border */
+  border-radius: 20px;
+  margin-right: 10px;
+  resize: none;
+  font-family: inherit;
+  font-size: 1em;
+  min-height: 40px; /* Adjust as needed */
+  max-height: 120px; /* Adjust as needed */
+  overflow-y: auto;
+  background-color: var(--chatbot-color-neutral-light); /* Use neutral background */
+  color: var(--chatbot-color-neutral-dark); /* Use neutral text color */
+}
+
+.chatbot-input textarea:focus {
+  outline: none;
+  border-color: var(--chatbot-color-mint); /* Mint accent on focus */
+}
+
+.chatbot-input button {
+  background-color: var(--ifm-color-primary);
+  color: rgb(152, 96, 96);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1em;
+  min-width: 80px;
+}
+
+.chatbot-input button:disabled {
+  background-color: var(--ifm-color-secondary);
+  cursor: not-allowed;
+}
+
+/* Styling for the send button (icon) */
+.chatbot-input .send-button {
+  width: 40px; /* Make it square */
+  min-width: 40px; /* Override min-width from general button style */
+  height: 40px;
+  padding: 0; /* Remove padding for icon buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%; /* Make it round */
+  background-color: var(--chatbot-color-mint); /* Use Mint from palette */
+}
+
+.chatbot-input .send-button svg {
+  width: 20px; /* Icon size */
+  height: 20px;
+  stroke: rgb(171, 117, 117); /* Icon color */
+}
+
+.chatbot-input .send-button:disabled {
+  background-color: var(--ifm-color-secondary);
+  cursor: not-allowed;
+}
+
+/* Styling for the clear history button (icon) */
+.clear-history-icon-button {
+  background: none;
+  border: none;
+  padding: 5px; /* Adjust padding for a small icon button */
+  cursor: pointer;
+  color: var(--chatbot-color-neutral-dark); /* Neutral icon color */
+  border-radius: 50%; /* Make it round */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.clear-history-icon-button:hover {
+  background-color: rgba(var(--chatbot-color-coral-rgb), 0.1); /* Subtle hover effect with coral */
+  color: var(--chatbot-color-coral); /* Coral accent on hover */
+}
+
+.clear-history-icon-button svg {
+  width: 22px; /* Icon size */
+  height: 22px;
+  stroke: currentColor; /* Inherit color from parent */
+}
+
+/* Loading spinner */
+.message.bot.loading {
+  background-color: var(--ifm-navbar-background-color);
+  color: var(--ifm-font-color-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  border: 4px solid rgba(178, 123, 123, 0.1);
+  border-left-color: var(--ifm-color-primary);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

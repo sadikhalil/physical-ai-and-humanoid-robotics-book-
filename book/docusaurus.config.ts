@@ -81,7 +81,7 @@ const config: Config = {
           position: 'left',
           label: 'Book'
         },
-        /* { to: '/chatbot', label: 'Chatbot AI', position: 'left' }, */
+        { to: '/chatbot', label: 'Chatbot AI', position: 'left' },
         /* { to: '/about-author', label: 'About the Author', position: 'left' }, */
         {
           href: 'https://github.com/sadikhalil',
