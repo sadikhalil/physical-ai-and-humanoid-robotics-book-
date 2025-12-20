@@ -1,6 +1,6 @@
 ---
 id: introduction
-slug: /introduction
+slug: /Part 1 - Foundations/introduction
 title: Introduction to Physical AI & Humanoid Robotics
 ---
 
