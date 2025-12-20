@@ -19,7 +19,7 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'physical-ai-and-humanoid-robotics-b-green.vercel.app',
+  url: 'https://physical-ai-and-humanoid-robotics-b-green.vercel.app/',
   baseUrl: '/',
 
   organizationName: 'facebook',
