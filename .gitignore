@@ -33,4 +33,3 @@ dist/
 
 .vercel
 .env*.local
-book/build/
