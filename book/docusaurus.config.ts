@@ -81,29 +81,30 @@ const config: Config = {
           position: 'left',
           label: 'Book'
         },
-        { to: '/chatbot', label: 'Chatbot AI', position: 'left' },
-        { to: '/about-author', label: 'About the Author', position: 'left' },
+        /* { to: '/chatbot', label: 'Chatbot AI', position: 'left' }, */
+        /* { to: '/about-author', label: 'About the Author', position: 'left' }, */
         {
           href: 'https://github.com/sadikhalil',
           label: 'GitHub',
           position: 'right',
         },
-        {
+        /* {
           to: '/login',
           label: 'Login',
           position: 'right',
-        },
-        {
+        }, */
+        /* {
           to: '/signup',
           label: 'Sign Up',
           position: 'right',
-        },
+        }, */
       ],
     },
 
     footer: {
       style: 'dark',
       links: [
+        /*
         {
           title: 'Docs',
           items: [
@@ -113,6 +114,7 @@ const config: Config = {
             },
           ],
         },
+        */
         {
           title: 'Community',
           items: [
@@ -141,10 +143,12 @@ const config: Config = {
         {
           title: 'More',
           items: [
+            /*
             {
               label: 'Blog',
               to: '/blog',
             },
+            */
             {
               label: 'GitHub',
               href: 'https://github.com/sadikhalil',
